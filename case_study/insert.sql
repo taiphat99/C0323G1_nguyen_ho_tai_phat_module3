@@ -1,8 +1,7 @@
 -- add
 insert into role
-values (2,"Nhân Viên");
-
-alter table service change column maximum_people_number maximum_capacity int;
+values (1,"Quản Lý"),
+(2,"Nhân Viên");
 
 insert into level
 values(1,"Trung Cấp"),
@@ -67,6 +66,16 @@ values (1,"Nguyễn Thị Hào","1970-11-07",0,"643431213","0945423362","thihao0
   (9,"Trần Đại Danh","1994-07-01",1,"432341235","0643343433","danhhai99@gmail.com","24 Lý Thường Kiệt, Quảng Ngãi",1),
   (10,"Nguyễn Tâm Đắc","1989-07-01",1,"344343432","0987654321","dactam@gmail.com","22 Ngô Quyền, Đà Nẵng",2);
   
+  
+insert into service(id,name,area,cost,maximum_capacity,room_standard,amenities,pool_area,floor_number,renting_type_id,service_type_id)
+values (1,"Villa Beach Front",25000,10000000,10,"vip","Có hồ bơi",500,4,3,1),
+(2,"House Princess 01",14000,5000000,7,"vip","Có thêm bếp nướng",null,3,2,2),
+(3,"Room Twin 01",5000,1000000,2,"normal","Có tivi",null,null,4,3),
+(4,"Villa No Beach Front",22000,9000000,8,"normal","Có hồ bơi",300,3,3,1),
+(5,"House Princess 02",10000,4000000,5,"normal","Có thêm bếp nướng",null,2,3,2),
+(6,"Room Twin 02",3000,900000,2,"normal","Có tivi",null,null,4,3);
+
+
   insert into contract
   values (1,"2020-12-08","2020-12-08",0,3,1,3),
 (2,"2020-07-14","2020-07-21",200000,7,3,1),
@@ -81,13 +90,7 @@ values (1,"Nguyễn Thị Hào","1970-11-07",0,"643431213","0945423362","thihao0
 (11,"2021-04-25","2021-04-25",0,2,2,1),
 (12,"2021-05-25","2021-05-27",0,7,10,1);
 
-insert into service(id,name,area,cost,maximum_people_number,room_standard,amenities,pool_area,floor_number,renting_type_id,service_type_id)
-values (1,"Villa Beach Front",25000,10000000,10,"vip","Có hồ bơi",500,4,3,1),
-(2,"House Princess 01",14000,5000000,7,"vip","Có thêm bếp nướng",null,3,2,2),
-(3,"Room Twin 01",5000,1000000,2,"normal","Có tivi",null,null,4,3),
-(4,"Villa No Beach Front",22000,9000000,8,"normal","Có hồ bơi",300,3,3,1),
-(5,"House Princess 02",10000,4000000,5,"normal","Có thêm bếp nướng",null,2,3,2),
-(6,"Room Twin 02",3000,900000,2,"normal","Có tivi",null,null,4,3);
+
   
   
 insert into contract_detail(id,quantity,contract_id,accompanied_service_id)

@@ -33,7 +33,6 @@ WHERE
         OR (address LIKE '%quảng trị'));
 
 
-
 /* 4. Đếm xem tương ứng với mỗi khách hàng đã từng đặt phòng bao nhiêu lần.
 Kết quả hiển thị được sắp xếp tăng dần theo số lần đặt phòng của khách hàng. Chỉ đếm những khách hàng nào có Tên loại khách hàng là “Diamond”*/
 
@@ -78,7 +77,7 @@ FROM
     contract_detail ON contract.id = contract_detail.contract_id
         LEFT JOIN
     accompanied_service ON contract_detail.accompanied_service_id = accompanied_service.id
-GROUP BY customer.id , contract.id , service.name;
+GROUP BY customer.id, contract.id;
 
 /* 6.	Hiển thị ma_dich_vu, ten_dich_vu, dien_tich, chi_phi_thue, ten_loai_dich_vu của tất cả các loại dịch vụ chưa từng được khách hàng 
 thực hiện đặt từ quý 1 của năm 2021 (Quý 1 là tháng 1, 2, 3)*/
@@ -194,14 +193,18 @@ FROM
 WHERE
     YEAR(contract.end_date) = 2021;
 
-select	count(customer_id) as customer_count,
-        month(contract.end_date) as month,
-        sum((service.cost - contract.deposit)) as Revenue
-from contract 
-join service on contract.service_id = service.id
-where year(contract.end_date) = 2021
-group by month(contract.end_date)
-order by month(contract.end_date);
+SELECT 
+    COUNT(customer_id) AS customer_count,
+    MONTH(contract.end_date) AS month,
+    SUM((service.cost - contract.deposit)) AS Revenue
+FROM
+    contract
+        JOIN
+    service ON contract.service_id = service.id
+WHERE
+    YEAR(contract.end_date) = 2021
+GROUP BY MONTH(contract.end_date)
+ORDER BY MONTH(contract.end_date);
 
 
 
@@ -216,7 +219,7 @@ SELECT
     contract.begin_date,
     contract.end_date,
     contract.deposit,
-    abc.sum
+    abc.sum as sum
 FROM
     contract
         LEFT JOIN
@@ -263,7 +266,7 @@ SELECT
     customer.phone_number,
     service.id,
     service.name,
-    COUNT(contract_detail.contract_id),
+    sum(contract_detail.quantity) as sum,
     contract.deposit
 FROM
     service
@@ -303,25 +306,165 @@ GROUP BY contract.id;
 (Lưu ý là có thể có nhiều dịch vụ có số lần sử dụng nhiều như nhau).*/
 
 
-
 SELECT 
-    MAX(abc.count)
+    accompanied_service.id,
+    accompanied_service.name,
+    SUM(contract_detail.quantity) AS count
 FROM
-    (SELECT 
-        accompanied_service_id, SUM(quantity) AS count
+    accompanied_service
+        JOIN
+    contract_detail ON contract_detail.accompanied_service_id = accompanied_service.id
+GROUP BY accompanied_service.id
+HAVING count = (SELECT 
+        MAX(abc.sum)
     FROM
-        contract_detail
-    GROUP BY accompanied_service_id) abc;
+        (SELECT 
+            accompanied_service_id, SUM(quantity) AS sum
+        FROM
+            contract_detail
+        GROUP BY accompanied_service_id) abc);
 
 
 /* 14.	Hiển thị thông tin tất cả các Dịch vụ đi kèm chỉ mới được sử dụng một lần duy nhất. Thông tin hiển thị bao gồm
 ma_hop_dong, ten_loai_dich_vu, ten_dich_vu_di_kem, so_lan_su_dung (được tính dựa trên việc count các ma_dich_vu_di_kem). */
 
-
+SELECT 
+    contract.id,
+    service_type.name,
+    accompanied_service.name,
+    abc.count
+FROM
+    (SELECT 
+        accompanied_service_id AS id,
+            COUNT(accompanied_service_id) AS count
+    FROM
+        contract_detail
+    GROUP BY accompanied_service_id
+    HAVING count = 1) abc
+        LEFT JOIN
+    contract_detail ON contract_detail.accompanied_service_id = abc.id
+        LEFT JOIN
+    contract ON contract.id = contract_detail.contract_id
+        LEFT JOIN
+    accompanied_service ON contract_detail.accompanied_service_id = accompanied_service.id
+        LEFT JOIN
+    service ON contract.service_id = service.id
+        LEFT JOIN
+    service_type ON service.service_type_id = service_type.id
+HAVING count = 1
+ORDER BY id;
 
 
 /* 15.	Hiển thi thông tin của tất cả nhân viên bao gồm ma_nhan_vien, ho_ten, ten_trinh_do, ten_bo_phan, so_dien_thoai, 
 dia_chi mới chỉ lập được tối đa 3 hợp đồng từ năm 2020 đến 2021. */
 
 
+SELECT 
+    staff.id,
+    staff.name,
+    level.name,
+    department.name,
+    staff.phone_number,
+    staff.address
+FROM
+    (SELECT 
+        staff_id AS id, COUNT(staff_id) AS count
+    FROM
+        contract
+    GROUP BY staff_id
+    HAVING count <= 3) result
+        JOIN
+    staff ON staff.id = result.id
+        JOIN
+    level ON staff.level_id = level.id
+        JOIN
+    department ON staff.department_id = department.id;
 
+
+
+/* 16.	Xóa những Nhân viên chưa từng lập được hợp đồng nào từ năm 2019 đến năm 2021. */
+DELETE FROM staff 
+WHERE
+    staff.id NOT IN (SELECT DISTINCT
+        staff_id
+    FROM
+        contract
+    
+    WHERE
+        YEAR(begin_date) = 2019
+        OR YEAR(begin_date) = 2020
+        OR YEAR(begin_date) = 2021);
+
+/* 17.	Cập nhật thông tin những khách hàng có ten_loai_khach từ Platinum lên Diamond,
+chỉ cập nhật những khách hàng đã từng đặt phòng với Tổng Tiền thanh toán trong năm 2021 là lớn hơn 10.000.000 VNĐ. */
+
+
+UPDATE customer 
+SET 
+    customer_type_id = 1
+WHERE
+    customer.id IN (SELECT 
+            result.id
+        FROM
+            (SELECT 
+                customer.id AS id,
+                    customer.name AS 'Name',
+                    customer_type.name AS 'Rank',
+                    SUM(service.cost + IFNULL(accompanied_service.price * contract_detail.quantity, 0)) AS total
+            FROM
+                customer
+            LEFT JOIN contract ON contract.customer_id = customer.id
+            LEFT JOIN contract_detail ON contract_detail.contract_id = contract.id
+            LEFT JOIN service ON contract.service_id = service.id
+            LEFT JOIN accompanied_service ON contract_detail.accompanied_service_id = accompanied_service.id
+            LEFT JOIN customer_type ON customer.customer_type_id = customer_type.id
+            GROUP BY customer.id
+            HAVING customer_type.name = 'Platinum'
+                AND total >= 10000000
+            ORDER BY customer.id) result); 
+
+
+
+/* 18.	Xóa những khách hàng có hợp đồng trước năm 2021 (chú ý ràng buộc giữa các bảng). */
+SET FOREIGN_KEY_CHECKS=0;
+DELETE FROM customer 
+WHERE
+    customer.id IN (SELECT 
+        customer_id
+    FROM
+        contract
+    
+    WHERE
+        end_date < '2021-01-01');
+SET FOREIGN_KEY_CHECKS=1;
+
+
+/* 19.	Cập nhật giá cho các dịch vụ đi kèm được sử dụng trên 10 lần trong năm 2020 lên gấp đôi. */
+
+UPDATE accompanied_service 
+SET 
+    price = price * 2
+WHERE
+    accompanied_service.id IN (SELECT 
+            result.id
+        FROM
+            (SELECT 
+                accompanied_service_id AS id, SUM(quantity) AS sum
+            FROM
+                contract_detail
+            GROUP BY accompanied_service_id
+            HAVING sum >= 10) result);
+
+
+/* 20.	Hiển thị thông tin của tất cả các nhân viên và khách hàng có trong hệ thống, 
+thông tin hiển thị bao gồm id (ma_nhan_vien, ma_khach_hang), ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi */
+
+
+SELECT 
+    id, name, email, phone_number, date_of_birth, address
+FROM
+    staff 
+UNION ALL SELECT 
+    id, name, email, phone_number, date_of_birth, address
+FROM
+    customer;
