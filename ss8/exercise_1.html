@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-column-gap: 10px;
+      grid-auto-flow: row;
+    }
+
+    .image {
+      width: 70%;
+      height: 70%;
+    margin: 20px 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <p>
+    <h1> Responsive Image Gallery </h1>
+    <h3>Resize the browser window to see the effect.</h3>
+    </p>
+  </div>
+  <div class="container">
+    <div style="max-height: 270px;"><img class="image"
+        src="https://images.pexels.com/photos/1032650/pexels-photo-1032650.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+        alt="">
+      <p>Add a description of the image here</p>
+    </div>
+
+    <div><img class="image"
+        src="https://images.pexels.com/photos/982263/pexels-photo-982263.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+        alt="">
+      <p>Add a description of the image here</p>
+    </div>
+    <div><img class="image"
+        src="https://images.pexels.com/photos/3601422/pexels-photo-3601422.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+        alt="">
+      <p>Add a description of the image here</p>
+    </div>
+    <div><img class="image"
+        src="https://images.pexels.com/photos/3155671/pexels-photo-3155671.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+        alt="">
+      <p>Add a description of the image here</p>
+    </div>
+  </div>
+  <div>
+    <p>This example use media queries to re-arrange the images on different screen sizes: for screens larger than 700px
+      wide, it will show four images side by side, for screens smaller than 700px, it will show two images side by side.
+      For screens smaller than 500px, the images will stack vertically (100%).</p>
+  </div>
+</body>
+
+</html>
