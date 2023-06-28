@@ -13,7 +13,13 @@
             width: 100%;
             background-color: white;
 
+        }
 
+        .layout-image {
+            height: 70%;
+            width: 85%;
+            object-fit: cover;
+            margin-left: 10px;
         }
 
         .background-image {
@@ -39,9 +45,44 @@
 
         .custom-1 {
             float: left;
-            margin-left: 23px;
+            margin-left: 15px;
+            margin-right: 10px;
             margin-top: 20px;
             margin-bottom: 20px;
+        }
+
+        .customer-2 {
+            margin: 20px 100px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-column-gap: 50px;
+            grid-template-rows: 300px 300px;
+            grid-row-gap: 15px;
+            grid-template-areas:
+                "aa aa bb bb"
+                "aa aa bb bb";
+
+        }
+
+        .customer-3 {
+            margin: 20px 100px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-column-gap: 50px;
+            grid-template-rows: 300px 300px;
+            grid-row-gap: 15px;
+            grid-template-areas:
+                "ee ff xx xx"
+                "gg hh xx xx";
+
+        }
+
+        .item-1 {
+            grid-area: aa;
+        }
+
+        .item-5 {
+            grid-area: xx;
         }
     </style>
 </head>
@@ -136,7 +177,7 @@
                 </a></p>
         </div>
     </div>
-    <div>
+    <div style="width:100%;height: 160px;position: relative;">
         <div class="custom-1">
             <div class="custom-1">
                 <i style="color: #2b5191;font-size: 70px;" class="fa-regular fa-building"></i>
@@ -174,7 +215,7 @@
                 <i style="color: #2b5191; font-size: 70px;" class="fa-solid fa-tablet"></i>
             </div>
             <div class="custom-1">
-                <p  class="h5">Why Surface</p>
+                <p class="h5">Why Surface</p>
             </div>
         </div>
         <div class="custom-1">
@@ -186,8 +227,59 @@
             </div>
         </div>
     </div>
+    <div>
+        <h4 style="margin-left: 100px;" class="h1">For all the ways you create
+        </h4>
+    </div>
+    <div style="margin-top: 50px;">
+        <span style="margin-left: 100px" class="h2">2 in 1 PCs
+        </span>
+        <a href="#"><span style="margin-left: 50px;" class="h2">See all Surface 2-in-1 PCs
+                <i class="fa-sharp fa-solid fa-angle-right" style="color: #263cce;"></i>
+            </span></a>
+    </div>
+    <div class="customer-2">
+        <div class="item-1"><img class="layout-image"
+                src="https://bizweb.dktcdn.net/thumb/1024x1024/100/357/448/products/surface-pro-7-haianh-1.jpg?v=1604887046120"
+                alt=""></div>
+        <div class=""><img class="layout-image"
+                src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/MSFT-View-Surface-Pro-9-Sapphire-Surface-Type-Cover-attached?fmt=png-alpha&wid=325&hei=240&fit=crop"
+                alt=""></div>
+        <div class=""><img class="layout-image"
+                src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/MSFT-Surface-Pro-8-shown-three-quarter-kickstand-extended-type-cover?fmt=png-alpha&wid=325&hei=240&fit=crop"
+                alt=""></div>
+        <div class=""><img class="layout-image"
+                src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/MSFT-Surface-Pro-7-plues-three-quarter-view-kickstand-extended-type-cover?fmt=png-alpha&wid=325&hei=240&fit=crop"
+                alt=""></div>
+        <div class=""><img class="layout-image"
+                src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/MSFT-Surface-Go-3--three-quarter-kickstand-extended-type-cover?fmt=png-alpha&wid=325&hei=240&fit=crop"
+                alt=""></div>
 
 
+    </div>
+    <div>
+        <span style="margin-left: 100px" class="h2">Laptop
+        </span>
+        <a href="#"><span style="margin-left: 50px;" class="h2">Explore all Surface Laptops
+                <i class="fa-sharp fa-solid fa-angle-right" style="color: #263cce;"></i>
+            </span></a>
+    </div>
+    <div class="customer-3">
+        <div class=""><img class="layout-image"
+                src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/MSFT_Surface-Laptop-5_Home_DeviceShowcase_Poster?fmt=png-alpha&wid=325&hei=240&fit=crop"
+                alt=""></div>
+        <div class=""><img class="layout-image"
+                src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/MSFT-Surface-Laptop-5_Home_DeviceShowcase_Platinum-Poster?fmt=png-alpha&wid=325&hei=240&fit=crop"
+                alt=""></div>
+        <div class=""><img class="layout-image"
+                src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/MSFT-Surface_Laptop-Studio_Home_DeviceShowcase_Poster?fmt=png-alpha&wid=325&hei=240&fit=crop"
+                alt=""></div>
+        <div class=""><img class="layout-image"
+                src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/MSFT-Surface_Laptop-Go-2_Home_DeviceShowcase_Poster?fmt=png-alpha&wid=325&hei=240&fit=crop"
+                alt=""></div>
+        <div class="item-5"><img class="layout-image"
+                src="https://lapvip.vn/upload/filters_img/original/988-0-1672990236.jpg" alt=""></div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
