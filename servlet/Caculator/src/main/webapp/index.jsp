@@ -7,7 +7,7 @@
 <body>
 <h1>Calculator</h1>
 <br/>
-<form action="/result.jsp" method="get">
+<form action="/Calculator" method="get">
     <fieldset>
         <legend>Calculator</legend>
         <table>
@@ -22,7 +22,7 @@
             <tr>
                 <td></td>
                 <td>
-            <select name="operation">
+            <select name="operator">
                 <option value="+">Addition</option>
                 <option value="-">Subtraction</option>
                 <option value="*">Multiplication</option>
