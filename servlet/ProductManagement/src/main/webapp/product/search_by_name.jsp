@@ -1,35 +1,19 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: dannynguyen
-  Date: 03/07/2023
-  Time: 14:51
+  Date: 04/07/2023
+  Time: 09:16
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Product Management</title>
-        <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-    <style>
-        table {
-            margin-top: 10px;
-        }
-
-        th, td {
-            text-align: center;
-        }
-    </style>
+    <title>Searching</title>
+    <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
 
 </head>
 <body>
-<h1 style="text-align: center">Product Management</h1>
-<a style="margin: 10px" class="btn btn-outline-success" href="/Product?action=showFormCreate">Add new Product</a> </br>
-<form action="/Product" method="get" style="margin: 10px">
-<input type="text" name="searchName" placeholder="Search By Name">
-<input type="text" name="action" value="searching" hidden="hidden">
-<input type="submit" value="Search">
-</form>
 <table class="table table-striped">
     <tr>
         <th scope="col">#</th>
@@ -62,5 +46,4 @@
 </table>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

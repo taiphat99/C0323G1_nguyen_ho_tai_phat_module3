@@ -8,7 +8,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-
 <html>
 <head>
     <title>Create new Product</title>
@@ -19,7 +18,7 @@
     <a class="btn btn-outline-success" href="/Product">Back to Product List</a>
 </div>
 <div style="margin: 20px 50px">
-    <form method="post">
+    <form action="/Product?action=add" method="post">
         <fieldset>
             <legend>PRODUCT INFORMATION</legend>
             <table>
@@ -33,15 +32,15 @@
                 </tr>
                 <tr>
                     <td>Price:</td>
-                    <td><input type="number" name="email" id="email"></td>
+                    <td><input type="number" name="price" id="price"></td>
                 </tr>
                 <tr>
                     <td>Quantity:</td>
-                    <td><input type="number" name="address" id="address"></td>
+                    <td><input type="number" name="quantity" id="quantity"></td>
                 </tr>
                 <tr>
                     <td>Description</td>
-                    <td><input type="text" name="description"></td>
+                    <td><input type="text" name="description" id="description"></td>
                 </tr>
                 <tr>
                     <td></td>
