@@ -11,7 +11,10 @@
 <html>
 <head>
     <title>Account List</title>
+    <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+
     <style>
+
         table, tr, td, th {
             border-collapse: collapse;
             border: solid black 1px;
@@ -24,19 +27,25 @@
     </style>
 </head>
 <body>
-<h1>Account List</h1>
+<h1 style="text-align: center">Account List</h1>
+<form action="/UserManagement?action=searchByName" method="post">
+    <input style="margin-left: 20px" type="text" name="name" placeholder="Search By Name">
+    <input class="btn btn-primary" type="submit" value="Search">
+</form>
 <form action="/UserManagement?action=searchByCountry" method="post">
     <input style="margin-left: 20px" type="text" name="country" placeholder="Search By Country">
-    <input type="submit" value="Search">
+    <input class="btn btn-primary" type="submit" value="Search">
 </form>
-<button style="margin-left: 20px" href="/UserManagement?action=sort">Sort By Name</button>
-
-<table>
+<a style="margin-left: 20px" class="btn btn-outline-success" href="/UserManagement?action=sort" >Sort By Name</a>
+<table class="table table-striped">
     <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Country</th>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Country</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
     </tr>
     <c:forEach items='${requestScope["userList"]}' var="user">
         <tr>
@@ -44,9 +53,12 @@
             <td>${user.getName()}</td>
             <td>${user.getEmail()}</td>
             <td>${user.getCountry()}</td>
+            <td><a class="btn btn-outline-warning" href="/UserManagement?action=detail&id=${user.getId()}">View</a></td>
+            <td><a class="btn btn-outline-primary" href="/Product?action=edit&id=${user.getId()}">Edit</a></td>
+            <td><a class="btn btn-outline-danger" href="/Product?action=delete&id=${user.getId()}">Delete</a></td>
         </tr>
     </c:forEach>
 </table>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

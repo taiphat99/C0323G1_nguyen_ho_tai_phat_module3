@@ -22,4 +22,9 @@ public class Service implements IService{
     public List<User> searchByCountry(String country) {
         return repository.searchByCountry(country);
     }
+
+    @Override
+    public List<User> getSortList() {
+        return repository.getSortList();
+    }
 }

@@ -23,6 +23,7 @@ public class UserManagementServlet extends HttpServlet {
         switch (action) {
             case "sort":
                 sortByName(request, response);
+                break;
             default:
                 showList(request, response);
         }
@@ -44,8 +45,14 @@ public class UserManagementServlet extends HttpServlet {
     }
 
     private void sortByName(HttpServletRequest request, HttpServletResponse response) {
-
-
+        RequestDispatcher dispatcher = request.getRequestDispatcher("user/list.jsp");
+        List<User> userList = service.getSortList();
+        request.setAttribute("userList", userList);
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) {
