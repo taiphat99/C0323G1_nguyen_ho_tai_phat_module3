@@ -1,7 +1,7 @@
 create database user_management;
 
-CREATE TABLE account (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE user (
+    id INT NOT NULL PRIMARY KEY,
     name VARCHAR(120) NOT NULL,
     email VARCHAR(120) NOT NULL,
     country VARCHAR(120)
@@ -14,5 +14,13 @@ values(1,"danny","danny@gmail.com","US"),
 (4,"bully","bully@gmail.com","Russia"),
 (5,"chunky","chunky@gmail.com","Poland");
 
-INSERT INTO user
-values("kellie","kellie@gmail.com","Finland");
+SELECT * FROM user ORDER BY name ASC;
+
+SELECT * FROM user WHERE id = 2;
+
+delete from user where id = 5;
+
+insert into user 
+values(5,"chunky","chunky@gmail.com","Poland");
+
+UPDATE user SET id = 8, name = "Jackie", email = "jackie@gmail.com", country = "Viet Nam" WHERE id = 8;

@@ -6,8 +6,9 @@ import com.usermanagement.repository.Repository;
 
 import java.util.List;
 
-public class Service implements IService{
+public class Service implements IService {
     IRepository repository = new Repository();
+
     @Override
     public List<User> getList() {
         return repository.getList();
@@ -26,5 +27,20 @@ public class Service implements IService{
     @Override
     public List<User> getSortList() {
         return repository.getSortList();
+    }
+
+    @Override
+    public User findById(int id) {
+        return repository.findById(id);
+    }
+
+    @Override
+    public void delete(int id) {
+        repository.delete(id);
+    }
+
+    @Override
+    public void update(User user) {
+        repository.update(user);
     }
 }

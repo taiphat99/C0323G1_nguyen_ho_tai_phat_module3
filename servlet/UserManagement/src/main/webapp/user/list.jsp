@@ -36,6 +36,7 @@
     <input style="margin-left: 20px" type="text" name="country" placeholder="Search By Country">
     <input class="btn btn-primary" type="submit" value="Search">
 </form>
+<a style="margin-left: 20px" class="btn btn-outline-success" href="/UserManagement?action=add" >Add New User</a>
 <a style="margin-left: 20px" class="btn btn-outline-success" href="/UserManagement?action=sort" >Sort By Name</a>
 <table class="table table-striped">
     <tr>
@@ -47,15 +48,15 @@
         <th scope="col"></th>
         <th scope="col"></th>
     </tr>
-    <c:forEach items='${requestScope["userList"]}' var="user">
+    <c:forEach items="${userList}" var="user">
         <tr>
             <td>${user.getId()}</td>
             <td>${user.getName()}</td>
             <td>${user.getEmail()}</td>
             <td>${user.getCountry()}</td>
             <td><a class="btn btn-outline-warning" href="/UserManagement?action=detail&id=${user.getId()}">View</a></td>
-            <td><a class="btn btn-outline-primary" href="/Product?action=edit&id=${user.getId()}">Edit</a></td>
-            <td><a class="btn btn-outline-danger" href="/Product?action=delete&id=${user.getId()}">Delete</a></td>
+            <td><a class="btn btn-outline-primary" href="/UserManagement?action=edit&id=${user.getId()}">Edit</a></td>
+            <td><a class="btn btn-outline-danger" href="/UserManagement?action=delete&id=${user.getId()}">Delete</a></td>
         </tr>
     </c:forEach>
 </table>
