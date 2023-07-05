@@ -24,9 +24,6 @@ public class UserManagementServlet extends HttpServlet {
             case "sort":
                 sortByName(request, response);
                 break;
-            case "delete":
-                showDeleteForm(request, response);
-                break;
             case "add":
                 showAddingForm(request, response);
                 break;
@@ -106,7 +103,22 @@ public class UserManagementServlet extends HttpServlet {
             case "edit":
                 edit(request, response);
                 break;
+            case "searchByName":
+                searchByName(request, response);
+                break;
 
+        }
+    }
+
+    private void searchByName(HttpServletRequest request, HttpServletResponse response) {
+        String name = request.getParameter("name");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("user/list.jsp");
+        List<User> userList = service.searchByName(name);
+        request.setAttribute("userList", userList);
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -145,13 +157,11 @@ public class UserManagementServlet extends HttpServlet {
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("user/delete.jsp");
         int id = Integer.parseInt(request.getParameter("id"));
-        request.setAttribute("message", "Delete successfully");
         service.delete(id);
         try {
-            dispatcher.forward(request, response);
-        } catch (ServletException | IOException e) {
+            response.sendRedirect("/UserManagement");
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

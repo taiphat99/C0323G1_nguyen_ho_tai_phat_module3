@@ -36,30 +36,52 @@
     <input style="margin-left: 20px" type="text" name="country" placeholder="Search By Country">
     <input class="btn btn-primary" type="submit" value="Search">
 </form>
+<a style="margin-left: 20px" class="btn btn-outline-success" href="/UserManagement">Back to User List</a>
 <a style="margin-left: 20px" class="btn btn-outline-success" href="/UserManagement?action=add" >Add New User</a>
 <a style="margin-left: 20px" class="btn btn-outline-success" href="/UserManagement?action=sort" >Sort By Name</a>
+<div class="container m-auto">
 <table class="table table-striped">
     <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Country</th>
-        <th scope="col"></th>
-        <th scope="col"></th>
-        <th scope="col"></th>
+        <th class="text-center" scope="col">ID</th>
+        <th class="text-center" scope="col">Name</th>
+        <th class="text-center" scope="col">Email</th>
+        <th class="text-center" scope="col">Country</th>
+        <th class="text-center" scope="col"></th>
+        <th class="text-center" scope="col"></th>
+        <th class="text-center" scope="col"></th>
     </tr>
     <c:forEach items="${userList}" var="user">
         <tr>
-            <td>${user.getId()}</td>
+            <td class="text-center">${user.getId()}</td>
             <td>${user.getName()}</td>
             <td>${user.getEmail()}</td>
             <td>${user.getCountry()}</td>
-            <td><a class="btn btn-outline-warning" href="/UserManagement?action=detail&id=${user.getId()}">View</a></td>
-            <td><a class="btn btn-outline-primary" href="/UserManagement?action=edit&id=${user.getId()}">Edit</a></td>
-            <td><a class="btn btn-outline-danger" href="/UserManagement?action=delete&id=${user.getId()}">Delete</a></td>
+            <td class="text-center"><a class="btn btn-outline-warning" href="/UserManagement?action=detail&id=${user.getId()}">View</a></td>
+            <td class="text-center"><a class="btn btn-outline-primary" href="/UserManagement?action=edit&id=${user.getId()}">Edit</a></td>
+            <td class="text-center"><button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
         </tr>
     </c:forEach>
 </table>
+</div>
+<div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Notification</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure to delete this User?</p>
+            </div>
+            <div class="modal-footer">
+                <form method="post" action="/UserManagement?action=delete&id=${user.getId()}">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="submit" class="btn btn-primary">Yes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

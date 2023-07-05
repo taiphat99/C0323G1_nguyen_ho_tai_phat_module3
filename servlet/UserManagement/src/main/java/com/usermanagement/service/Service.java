@@ -43,4 +43,9 @@ public class Service implements IService {
     public void update(User user) {
         repository.update(user);
     }
+
+    @Override
+    public List<User> searchByName(String name) {
+        return repository.searchByName(name);
+    }
 }

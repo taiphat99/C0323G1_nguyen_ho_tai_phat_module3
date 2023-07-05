@@ -12,4 +12,5 @@ public interface IRepository {
     User findById(int id);
     void delete(int id);
     void update(User user);
+    List<User> searchByName(String name);
 }
