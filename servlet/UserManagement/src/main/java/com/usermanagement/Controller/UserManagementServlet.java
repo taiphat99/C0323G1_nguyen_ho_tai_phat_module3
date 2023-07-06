@@ -1,8 +1,8 @@
 package com.usermanagement.Controller;
 
 import com.usermanagement.model.User;
-import com.usermanagement.service.IService;
-import com.usermanagement.service.Service;
+import com.usermanagement.service.IUserService;
+import com.usermanagement.service.UserService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @WebServlet(name = "UserManagementServlet", urlPatterns = "/UserManagement")
 public class UserManagementServlet extends HttpServlet {
-    private static final IService service = new Service();
+    private static final IUserService service = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,11 +27,14 @@ public class UserManagementServlet extends HttpServlet {
             case "add":
                 showAddingForm(request, response);
                 break;
-            case "detail":
-                showDetailUser(request, response);
-                break;
+//            case "detail":
+//                showDetailUser(request, response);
+//                break;
             case "edit":
                 showEditForm(request, response);
+                break;
+            case "delete":
+                delete(request, response);
                 break;
             default:
                 showList(request, response);
@@ -52,17 +55,17 @@ public class UserManagementServlet extends HttpServlet {
 
     }
 
-    private void showDetailUser(HttpServletRequest request, HttpServletResponse response) {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("user/detail.jsp");
-        int id = Integer.parseInt(request.getParameter("id"));
-        User user = service.findById(id);
-        request.setAttribute("user", user);
-        try {
-            dispatcher.forward(request, response);
-        } catch (ServletException | IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void showDetailUser(HttpServletRequest request, HttpServletResponse response) {
+//        RequestDispatcher dispatcher = request.getRequestDispatcher("user/detail.jsp");
+//        int id = Integer.parseInt(request.getParameter("id"));
+//        User user = service.findById(id);
+//        request.setAttribute("user", user);
+//        try {
+//            dispatcher.forward(request, response);
+//        } catch (ServletException | IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void showAddingForm(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher dispatcher = request.getRequestDispatcher("user/add.jsp");
@@ -72,18 +75,18 @@ public class UserManagementServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
-
-    private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) {
-        int id = Integer.parseInt(request.getParameter("id"));
-        User user = service.findById(id);
-        request.setAttribute("user", user);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("user/delete.jsp");
-        try {
-            dispatcher.forward(request, response);
-        } catch (ServletException | IOException e) {
-            e.printStackTrace();
-        }
-    }
+//
+//    private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) {
+//        int id = Integer.parseInt(request.getParameter("id"));
+//        User user = service.findById(id);
+//        request.setAttribute("user", user);
+//        RequestDispatcher dispatcher = request.getRequestDispatcher("user/delete.jsp");
+//        try {
+//            dispatcher.forward(request, response);
+//        } catch (ServletException | IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -94,8 +97,6 @@ public class UserManagementServlet extends HttpServlet {
         switch (action) {
             case "searchByCountry":
                 searchByCountry(request, response);
-            case "delete":
-                delete(request, response);
                 break;
             case "add":
                 add(request, response);
@@ -106,7 +107,8 @@ public class UserManagementServlet extends HttpServlet {
             case "searchByName":
                 searchByName(request, response);
                 break;
-
+            default:
+                showList(request, response);
         }
     }
 

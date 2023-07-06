@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Repository implements IRepository {
+public class UserRepository implements IUserRepository {
     public static final String CALL_SELECT = "call get_all()";
     public static final String CALL_INSERT = "call insert_new_user(?,?,?,?)";
     public static final String CALL_SEARCH_BY_COUNTRY = "call search_by_country(?)";

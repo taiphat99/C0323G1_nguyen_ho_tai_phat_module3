@@ -1,13 +1,13 @@
 package com.usermanagement.service;
 
 import com.usermanagement.model.User;
-import com.usermanagement.repository.IRepository;
-import com.usermanagement.repository.Repository;
+import com.usermanagement.repository.IUserRepository;
+import com.usermanagement.repository.UserRepository;
 
 import java.util.List;
 
-public class Service implements IService {
-    IRepository repository = new Repository();
+public class UserService implements IUserService {
+    IUserRepository repository = new UserRepository();
 
     @Override
     public List<User> getList() {
