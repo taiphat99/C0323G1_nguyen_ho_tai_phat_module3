@@ -27,12 +27,6 @@ public class UserManagementServlet extends HttpServlet {
             case "add":
                 showAddingForm(request, response);
                 break;
-//            case "detail":
-//                showDetailUser(request, response);
-//                break;
-            case "edit":
-                showEditForm(request, response);
-                break;
             case "delete":
                 delete(request, response);
                 break;
@@ -40,53 +34,6 @@ public class UserManagementServlet extends HttpServlet {
                 showList(request, response);
         }
     }
-
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response) {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("user/edit.jsp");
-        int id = Integer.parseInt(request.getParameter("id"));
-        User user = service.findById(id);
-        request.setAttribute("user", user);
-        try {
-            dispatcher.forward(request, response);
-        } catch (ServletException | IOException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
-//    private void showDetailUser(HttpServletRequest request, HttpServletResponse response) {
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("user/detail.jsp");
-//        int id = Integer.parseInt(request.getParameter("id"));
-//        User user = service.findById(id);
-//        request.setAttribute("user", user);
-//        try {
-//            dispatcher.forward(request, response);
-//        } catch (ServletException | IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-    private void showAddingForm(HttpServletRequest request, HttpServletResponse response) {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("user/add.jsp");
-        try {
-            dispatcher.forward(request, response);
-        } catch (ServletException | IOException e) {
-            e.printStackTrace();
-        }
-    }
-//
-//    private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) {
-//        int id = Integer.parseInt(request.getParameter("id"));
-//        User user = service.findById(id);
-//        request.setAttribute("user", user);
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("user/delete.jsp");
-//        try {
-//            dispatcher.forward(request, response);
-//        } catch (ServletException | IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -112,6 +59,18 @@ public class UserManagementServlet extends HttpServlet {
         }
     }
 
+
+    private void showAddingForm(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("user/add.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
     private void searchByName(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter("name");
         RequestDispatcher dispatcher = request.getRequestDispatcher("user/list.jsp");
@@ -125,16 +84,14 @@ public class UserManagementServlet extends HttpServlet {
     }
 
     private void edit(HttpServletRequest request, HttpServletResponse response) {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("user/edit.jsp");
-        request.setAttribute("message", "Edit successfully");
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String country = request.getParameter("country");
         service.update(new User(id, name, email, country));
         try {
-            dispatcher.forward(request, response);
-        } catch (ServletException | IOException e) {
+            response.sendRedirect("/UserManagement");
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

@@ -137,34 +137,35 @@
 <div class="modal" id="editModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Notification</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div style="text-align: center" class="modal-body">
-                <h4>USER INFORMATION</h4>
-                <table class="container">
-                    <tr>
-                        <td>Name:</td>
-                        <td><input type="text" name="name" value="editName"></td>
-                    </tr>
-                    <tr>
-                        <td>Email:</td>
-                        <td><input type="text" name="email" value="editEmail"></td>
-                    </tr>
-                    <tr>
-                        <td>Country:</td>
-                        <td><input type="text" name="country" value="editCountry"></td>
-                    </tr>
-                    <tr>
-                        <div class="modal-footer">
-                            <a onclick="remove()">
-                                <button type="button" class="btn btn-primary">Yes</button>
-                            </a>
-                        </div>
-                    </tr>
-                </table>
-            </div>
+            <form action="/UserManagement?action=edit" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title">Notification</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div style="text-align: center" class="modal-body">
+                    <h4>USER INFORMATION</h4>
+                    <table class="container m-auto">
+                        <input type="hidden" name="id" id="editId">
+                        <tr>
+                            <td>Name:</td>
+                            <td><input type="text" name="name" id="editName"></td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td><input type="text" name="email" id="editEmail"></td>
+                        </tr>
+                        <tr>
+                            <td>Country:</td>
+                            <td><input type="text" name="country" id="editCountry"></td>
+                        </tr>
+                        <tr>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Done</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -215,10 +216,10 @@
     }
 
     function sendInfoToEditModal(id, name, email, country) {
-        document.getElementById("editId").innerText = id;
-        document.getElementById("editName").innerText = name;
-        document.getElementById("editEmail").innerText = email;
-        document.getElementById("editCountry").innerText = country;
+        document.getElementById("editId").value = id;
+        document.getElementById("editName").value = name;
+        document.getElementById("editEmail").value = email;
+        document.getElementById("editCountry").value = country;
     }
 
 
